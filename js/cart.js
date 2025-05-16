@@ -104,3 +104,18 @@ function getCartTotal() {
 document.addEventListener('DOMContentLoaded', () => {
     updateCartCountDisplay();
 });
+
+function getCartItems() { // Asegúrate que esta función exista y devuelva el array 'cart'
+    return cart;
+}
+
+function getCartTotal() { // Asegúrate que esta función exista
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2);
+}
+
+function clearCart() {
+    console.log("Limpiando carrito...");
+    cart = []; // Vacía el array en memoria
+    saveCart(); // Guarda el array vacío en localStorage
+    updateCartCountDisplay(); // Actualiza el contador del navbar
+}

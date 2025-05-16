@@ -1,0 +1,217 @@
+/* css/checkout-style.css */
+
+/* Usar variables de tu style.css general si están en :root */
+:root {
+    --checkout-section-bg: #ffffff;
+    --checkout-section-border: #e9ecef; /* Un borde más suave */
+    --checkout-section-shadow: 0 .25rem .75rem rgba(0, 0, 0, .04);
+    --checkout-input-bg: #fff;
+    --checkout-input-border: #ced4da;
+    --checkout-input-focus-border: var(--primary-color, #007bff); /* Usa la variable de tu style.css */
+    --checkout-input-focus-shadow: rgba(var(--primary-color-rgb, 0, 123, 255), 0.15); /* Necesitas definir --primary-color-rgb en tu style.css :root o poner los valores RGB aquí */
+    --checkout-summary-bg: #f8f9fa; /* Ligeramente diferente para el resumen */
+    --checkout-text-muted: #6c757d;
+    --checkout-heading-color: #343a40;
+}
+
+/* Si no tienes --primary-color-rgb en tu style.css general, defínelo o usa un color fijo: */
+/* :root { --primary-color-rgb: 13, 110, 253; } /* Para Bootstrap blue #0d6efd */
+
+
+/* Estilo general del contenedor del checkout */
+.checkout-container {
+    max-width: 960px; /* Un poco más ancho para dos columnas cómodas */
+    margin-top: 2rem; /* Menos margen si el navbar ya tiene padding-top en body */
+    margin-bottom: 3rem;
+    font-size: 0.95rem; /* Ligeramente más pequeño para un look más denso/profesional */
+}
+
+.checkout-container h1 {
+    font-weight: 700;
+    color: var(--checkout-heading-color);
+    margin-bottom: 2.5rem !important; /* Más espacio debajo del título principal */
+}
+
+/* Estilo para las secciones (Envío, Pago, Resumen) */
+.shipping-section,
+.payment-section,
+.summary-section {
+    background-color: var(--checkout-section-bg);
+    padding: 2rem; /* Más padding interno */
+    border-radius: calc(var(--border-radius, 0.375rem) * 1.5); /* Bordes más redondeados */
+    border: 1px solid var(--checkout-section-border);
+    box-shadow: var(--checkout-section-shadow);
+    margin-bottom: 2rem;
+}
+
+.shipping-section h4,
+.payment-section h4,
+.summary-section h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--checkout-heading-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--checkout-section-border);
+}
+.shipping-section h4 i,
+.payment-section h4 i,
+.summary-section h4 i {
+    color: var(--primary-color, #007bff); /* Íconos con color primario */
+}
+
+
+/* Formularios de Envío y Pago */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+    font-size: 0.875rem;
+    color: #495057;
+}
+
+.form-control {
+    background-color: var(--checkout-input-bg);
+    border: 1px solid var(--checkout-input-border);
+    padding: 0.65rem 1rem; /* Ajustar padding */
+    font-size: 0.95rem;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: var(--checkout-input-focus-border);
+    box-shadow: 0 0 0 0.2rem var(--checkout-input-focus-shadow);
+}
+
+/* Estilo mejorado para los radio buttons de método de pago */
+.payment-section .list-group-item {
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--checkout-input-border) !important; /* Sobrescribir Bootstrap */
+    border-radius: var(--border-radius, 0.375rem) !important; /* Aplicar a cada item */
+    margin-bottom: 0.75rem; /* Espacio entre opciones */
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    cursor: pointer;
+}
+.payment-section .list-group-item:last-child {
+    margin-bottom: 0;
+}
+
+.payment-section .list-group-item:hover {
+    border-color: var(--checkout-input-focus-border);
+    box-shadow: 0 0 8px var(--checkout-input-focus-shadow);
+}
+
+.payment-section .list-group-item input[type="radio"] {
+    margin-top: 0.15rem; /* Ajuste vertical */
+}
+
+.payment-section .list-group-item input[type="radio"]:checked + i { /* Estilo para el ícono cuando está seleccionado */
+    color: var(--primary-color, #007bff);
+    font-weight: bold;
+}
+.payment-section .list-group-item.active, /* Si Bootstrap añade 'active' */
+.payment-section .list-group-item input[type="radio"]:checked ~ * { /* Para el texto al lado */
+    /* color: var(--primary-color); */ /* Opcional: cambiar color del texto */
+}
+/* Para destacar la opción seleccionada */
+.payment-section .list-group-item input[type="radio"]:checked {
+    border-color: var(--checkout-input-focus-border); /* No funciona directamente en el radio, pero es un intento */
+}
+.payment-section .list-group-item-action:has(input[type="radio"]:checked) { /* Pseudo-selector :has */
+    border-color: var(--checkout-input-focus-border) !important;
+    background-color: #f0f6ff; /* Un fondo muy sutil para el seleccionado */
+    box-shadow: 0 0 8px var(--checkout-input-focus-shadow);
+}
+
+
+/* Formulario de detalles de tarjeta */
+#card-details-form {
+    background-color: #fdfdfd; /* Ligeramente diferente si quieres */
+    padding: 1.5rem;
+    border: 1px dashed var(--checkout-input-border); /* Borde discontinuo para diferenciar */
+    margin-top: 1.5rem;
+    border-radius: var(--border-radius, 0.375rem);
+}
+#card-details-form h5 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: var(--checkout-heading-color);
+}
+
+/* Resumen del Pedido */
+.summary-section {
+    background-color: var(--checkout-summary-bg);
+    border-left: 3px solid var(--primary-color, #007bff); /* Un acento de color */
+}
+
+.summary-section .list-group-item {
+    background-color: transparent; /* Heredar fondo de .summary-section */
+    padding: 0.75rem 0; /* Menos padding vertical */
+    border-color: var(--checkout-section-border) !important;
+}
+.summary-section .list-group-item:first-child {
+    border-top: none !important;
+}
+.summary-section .list-group-item:last-child {
+    border-bottom: none !important;
+}
+
+
+.summary-section .list-group-item span.fw-medium { /* Nombre del producto */
+    color: var(--text-color);
+}
+
+.summary-section #checkout-cart-total {
+    color: var(--primary-color, #007bff);
+    font-size: 1.6rem; /* Un poco más grande */
+}
+
+/* Botón de Finalizar Pedido */
+#place-order-btn {
+    padding: 0.8rem 1.5rem; /* Botón más grande */
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    box-shadow: var(--box-shadow-sm);
+}
+#place-order-btn:hover {
+    box-shadow: var(--box-shadow);
+}
+#place-order-btn i {
+    margin-right: 0.5rem;
+}
+
+/* Mensajes de Alerta en Checkout */
+#checkout-message.alert { /* Ya tiene .alert, así que podemos ser más específicos */
+    font-size: 0.95rem;
+    padding: 1rem 1.25rem;
+    border-left-width: 5px; /* Borde izquierdo más grueso para destacar */
+}
+#checkout-message.alert-success {
+    border-left-color: var(--bs-success-border-subtle, #198754); /* Usa variable de Bootstrap o tu color de éxito */
+}
+#checkout-message.alert-danger {
+    border-left-color: var(--bs-danger-border-subtle, #dc3545);
+}
+#checkout-message.alert-warning {
+    border-left-color: var(--bs-warning-border-subtle, #ffc107);
+}
+
+/* Estilos para responsividad (Bootstrap ya hace mucho, esto es para afinar) */
+@media (max-width: 767.98px) {
+    .checkout-container {
+        margin-top: 1rem;
+    }
+    .shipping-section,
+    .payment-section,
+    .summary-section {
+        padding: 1.5rem;
+    }
+    .checkout-container h1 {
+        font-size: 1.75rem; /* Reducir tamaño del título principal en móviles */
+        margin-bottom: 1.5rem !important;
+    }
+    .summary-section {
+        margin-top: 2rem; /* Asegurar espacio si se apila debajo de los formularios */
+    }
+}
