@@ -41,3 +41,4 @@ Gilmer Gustavo Huachaca Bellido
 Candy Estefani Vargas Zuta
 Job Jared Ushiñahua lazo
 Rally Trujillo Richard Alexis Manuel
+Benjamin Piro Morales
