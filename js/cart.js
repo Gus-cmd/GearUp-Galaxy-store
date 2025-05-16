@@ -35,7 +35,7 @@ function addToCart(productId) {
 
 // Función para actualizar el contador del carrito en el navbar
 function updateCartCountDisplay() {
-    const cartCountElement = document.getElementById('cart-count');
+    const cartCountElement = document.getElementById('cart-count-nav');
     if (cartCountElement) {
         const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
         cartCountElement.textContent = totalItems;

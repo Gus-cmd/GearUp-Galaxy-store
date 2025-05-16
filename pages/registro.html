@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obtener Cuenta de Simulación - GearUp Galaxy</title>
+    <link rel="icon" href="../assets/images/rocket logo.svg" type="image/png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .auth-container { max-width: 500px; margin-top: 50px; margin-bottom: 100px; padding: 2rem; border: 1px solid #ddd; border-radius: 0.5rem; background-color: #fff; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.1); }
+    </style>
+</head><body>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="../index.html"><i class="fas fa-rocket me-2"></i>GearUp Galaxy</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../index.html#products-section">Productos</a></li>
+                    <li class="nav-item" id="nav-login"><a class="nav-link" href="login.html">Iniciar Sesión</a></li>
+                    <li class="nav-item" id="nav-register"><a class="nav-link active" aria-current="page" href="registro.html">Obtener Cuenta</a></li>
+                    <li class="nav-item dropdown" id="nav-account" style="display: none;"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown"><i class="fas fa-user me-1"></i><span id="nav-username">Cuenta</span></a><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="account.html">Mi Cuenta</a></li><li><a class="dropdown-item" href="#" id="logout-button">Cerrar Sesión</a></li></ul></li>
+                    <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart"></i> Carrito <span class="badge bg-primary rounded-pill" id="cart-count-nav">0</span></a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="auth-container mx-auto">
+            <h2 class="text-center mb-4">Obtener Credenciales de Simulación</h2>
+            <p class="text-center text-muted">Ingresa tu nombre para generar una cuenta de prueba única.</p>
+            
+            <div id="register-message" class="alert" style="display: none;" role="alert">
+                </div>
+
+            <form id="register-form-simulated">
+                <div class="mb-3">
+                    <label for="sim-register-name" class="form-label">Tu Nombre</label>
+                    <input type="text" class="form-control" id="sim-register-name" placeholder="Ej: Alex Quilca" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary btn-lg">Generar Mi Cuenta de Prueba</button>
+                </div>
+            </form>
+
+            <div id="generated-credentials" class="mt-4 p-3 border rounded bg-light" style="display: none;">
+                <h4>¡Cuenta de Simulación Generada!</h4>
+                <p>Usa estas credenciales para <a href="login.html">iniciar sesión</a>:</p>
+                <p><strong>Email:</strong> <code id="generated-email"></code></p>
+                <p><strong>Contraseña:</strong> <code id="generated-password"></code></p>
+                <p class="text-danger small">Nota: Esta es una simulación. No uses estas credenciales en sitios reales.</p>
+            </div>
+            <hr>
+            <p class="text-center mb-0">
+                ¿Ya tienes credenciales? <a href="login.html">Inicia sesión aquí</a>
+            </p>
+        </div>
+    </main>
+
+    <footer class="footer mt-auto py-3 bg-dark fixed-bottom">
+        <div class="container text-center text-white"><p class="mb-0">&copy; <span id="currentYear"></span> GearUp Galaxy. Todos los derechos reservados.</p></div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/cart.js"></script>
+    <script src="../js/auth.js"></script>
+    <script>
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof updateCartCountDisplay === 'function') updateCartCountDisplay();
+            if (typeof updateUserNav === 'function') updateUserNav();
+        });
+    </script>
+</body>
+</html>
