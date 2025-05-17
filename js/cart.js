@@ -174,17 +174,3 @@ function clearCart() {
 // en su propio bloque DOMContentLoaded. Esto da más control y evita llamadas múltiples
 // o dependencias de si cart.js se cargó y ejecutó su propio DOMContentLoaded primero.
 
-// Ejemplo de lo que va en cada HTML al final del body:
-/*
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-      if (typeof updateCartCountDisplay === 'function') {
-          updateCartCountDisplay();
-      }
-      if (typeof updateUserNav === 'function') { // Si también usas auth.js
-          updateUserNav();
-      }
-      // ... otras inicializaciones de la página específica ...
-  });
-</script>
-*/
