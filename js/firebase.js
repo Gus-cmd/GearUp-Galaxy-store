@@ -7,14 +7,16 @@ const firebaseConfig = {
   apiKey: "AIzaSyDAPcvAPLw0pSW3BlHepBes0PKZSKGIbRA",
   authDomain: "gearup-galaxy-store.firebaseapp.com",
   projectId: "gearup-galaxy-store",
-  storageBucket: "gearup-galaxy-store.firebasestorage.app",
+  storageBucket: "gearup-galaxy-store.appspot.com", // ✅ corregido
   messagingSenderId: "468355462145",
   appId: "1:468355462145:web:6f42f8f05497d753447c00"
 };
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
+
+// Inicializar Firestore (base de datos)
 const db = getFirestore(app);
 
-// Exportar la base de datos
+// Exportar la base de datos para usarla en otros archivos
 export { db };
