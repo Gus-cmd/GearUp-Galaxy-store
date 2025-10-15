@@ -1,22 +1,24 @@
-// Importa los módulos de Firebase
+// js/firebase.js
 import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-// Configuración de tu proyecto Firebase
+// ✅ Tu configuración de Firebase (usa la tuya)
 const firebaseConfig = {
   apiKey: "AIzaSyDAPcvAPLw0pSW3BlHepBes0PKZSKGIbRA",
   authDomain: "gearup-galaxy-store.firebaseapp.com",
   projectId: "gearup-galaxy-store",
-  storageBucket: "gearup-galaxy-store.appspot.com", // ✅ corregido
+  storageBucket: "gearup-galaxy-store.firebasestorage.app",
   messagingSenderId: "468355462145",
   appId: "1:468355462145:web:6f42f8f05497d753447c00"
 };
 
-// Inicializar Firebase
+// ✅ Inicializa la app
 const app = initializeApp(firebaseConfig);
 
-// Inicializar Firestore (base de datos)
+// ✅ Inicializa servicios
 const db = getFirestore(app);
+const auth = getAuth(app);
 
-// Exportar la base de datos para usarla en otros archivos
-export { db };
+// ✅ Exporta correctamente
+export { app, db, auth };

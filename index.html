@@ -1,72 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>GearUp Galaxy - Inicio</title>
-    <link rel="icon" href="assets/images/rocket logo.svg" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-    <link rel="stylesheet" href="css/styles.css" /> 
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-      <div class="container">
-        <a class="navbar-brand" href="index.html"><i class="fas fa-rocket me-2"></i>GearUp Galaxy</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="index.html#products-section">Productos</a></li>
-            <li class="nav-item" id="nav-login"><a class="nav-link" href="pages/login.html">Iniciar Sesión</a></li>
-            <li class="nav-item" id="nav-register"><a class="nav-link" href="pages/registro.html">Obtener Cuenta</a></li>
-            <li class="nav-item dropdown" id="nav-account" style="display: none;"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown"><i class="fas fa-user me-1"></i><span id="nav-username">Cuenta</span></a><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" href="pages/account.html">Mi Cuenta</a></li><li><a class="dropdown-item" href="#" id="logout-button">Cerrar Sesión</a></li></ul></li>
-            <li class="nav-item"><a class="nav-link" href="pages/cart.html"><i class="fas fa-shopping-cart"></i> Carrito <span class="badge bg-primary rounded-pill" id="cart-count-nav">0</span></a></li>
-          </ul>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GearUp Galaxy - Inicio</title>
+  <link rel="icon" href="assets/images/rocket logo.svg" type="image/png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- 🧭 NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand" href="index.html"><i class="fas fa-rocket me-2"></i>GearUp Galaxy</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="index.html#products-section">Productos</a></li>
+
+          <!-- Links visibles cuando el usuario NO ha iniciado sesión -->
+          <li class="nav-item" id="nav-login"><a class="nav-link" href="pages/login.html">Iniciar Sesión</a></li>
+          <li class="nav-item" id="nav-register"><a class="nav-link" href="pages/registro.html">Obtener Cuenta</a></li>
+
+          <!-- Menú visible cuando el usuario está logueado -->
+          <li class="nav-item dropdown" id="nav-account" style="display: none;">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown">
+              <i class="fas fa-user me-1"></i><span id="nav-username">Cuenta</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="pages/account.html">Mi Cuenta</a></li>
+              <li><a class="dropdown-item" href="#" id="logout-button">Cerrar Sesión</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="pages/cart.html">
+              <i class="fas fa-shopping-cart"></i> Carrito
+              <span class="badge bg-primary rounded-pill" id="cart-count-nav">0</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🏠 HEADER -->
+  <header class="container mt-5 mb-4 text-center">
+    <h1 class="display-4">Bienvenido a GearUp Galaxy</h1>
+    <p class="lead">Tu destino para lo último en tecnología y accesorios gaming.</p>
+  </header>
+
+  <!-- 🛒 PRODUCTOS -->
+  <main class="container">
+    <section id="products-section">
+      <h2 class="mb-4 text-center">Nuestros Productos</h2>
+      <div class="row" id="products-container">
+        <div class="col-12 text-center" id="products-loading">
+          <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Cargando productos...</span>
+          </div>
+          <p>Cargando productos...</p>
         </div>
       </div>
-    </nav>
+    </section>
+  </main>
 
-    <header class="container mt-5 mb-4 text-center">
-      <h1 class="display-4">Bienvenido a GearUp Galaxy</h1>
-      <p class="lead">Tu destino para lo último en tecnología y accesorios gaming.</p>
-    </header>
+  <!-- ⚙️ FOOTER -->
+  <footer class="footer mt-auto py-3 bg-dark">
+    <div class="container text-center text-white">
+      <p class="mb-0">&copy; <span id="currentYear"></span> GearUp Galaxy. Todos los derechos reservados.</p>
+    </div>
+  </footer>
 
-    <main class="container">
-      <section id="products-section">
-        <h2 class="mb-4 text-center">Nuestros Productos</h2>
-        <div class="row" id="products-container">
-          <div class="col-12 text-center" id="products-loading"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Cargando productos...</span></div><p>Cargando productos...</p></div>
-        </div>
-      </section>
-    </main>
+  <!-- 🔧 SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/product-data.js"></script>
+  <script src="js/cart.js"></script>
+  <script src="js/script.js"></script>
+  <script type="module" src="js/products.js"></script>
 
-    <footer class="footer mt-auto py-3 bg-dark">
-      <div class="container text-center text-white"><p class="mb-0">&copy; <span id="currentYear"></span> GearUp Galaxy. Todos los derechos reservados.</p></div>
-    </footer>
+  <!-- 🧠 FIREBASE + AUTH CONTROL -->
+  <script type="module">
+    import { auth } from "./js/firebase.js";
+    import { logoutUser } from "./js/auth.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
 
-    <script type="module" src="js/firebase.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/product-data.js"></script>
-    <script src="js/cart.js"></script>
-    <script src="js/auth.js"></script>
-    <script src="js/script.js"></script>
-    <script type="module" src="js/products.js"></script>
-    <script>
-      document.getElementById('currentYear').textContent = new Date().getFullYear();
-      document.addEventListener('DOMContentLoaded', () => {
-          console.log("Index.html DOMContentLoaded: Actualizando UI."); // DEBUG
-          if (typeof updateCartCountDisplay === 'function') {
-              updateCartCountDisplay();
-          } else {
-              console.warn("updateCartCountDisplay no está definida al cargar index.html");
-          }
-          if (typeof updateUserNav === 'function') {
-              updateUserNav();
-          } else {
-              console.warn("updateUserNav no está definida al cargar index.html");
-          }
+    // DOM
+    const navLogin = document.getElementById("nav-login");
+    const navRegister = document.getElementById("nav-register");
+    const navAccount = document.getElementById("nav-account");
+    const navUsername = document.getElementById("nav-username");
+    const logoutButton = document.getElementById("logout-button");
+
+    // Actualiza año del footer
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    // Detectar usuario activo
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        navLogin.style.display = "none";
+        navRegister.style.display = "none";
+        navAccount.style.display = "block";
+        navUsername.textContent = user.displayName || user.email.split("@")[0];
+      } else {
+        navLogin.style.display = "block";
+        navRegister.style.display = "block";
+        navAccount.style.display = "none";
+      }
+    });
+
+    // Cerrar sesión
+    if (logoutButton) {
+      logoutButton.addEventListener("click", async (e) => {
+        e.preventDefault();
+        await logoutUser();
       });
-    </script>
-  </body>
+    }
+
+    // Actualizar contador de carrito
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof updateCartCountDisplay === "function") {
+        updateCartCountDisplay();
+      }
+    });
+  </script>
+</body>
 </html>
+  
