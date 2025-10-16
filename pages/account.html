@@ -1,91 +1,134 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Cuenta - GearUp Galaxy</title>
-    <link rel="icon" href="../assets/images/rocket logo.svg" type="image/png">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <link rel="stylesheet" href="../css/style.css">
-    <style>
-        .account-container { max-width: 600px; margin-top: 50px; margin-bottom: 100px; padding: 2rem; border: 1px solid #ddd; border-radius: 0.5rem; background-color: #fff; box-shadow: 0 0.5rem 1rem rgba(0,0,0,.1); }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mi Cuenta - GearUp Galaxy</title>
+  <link rel="icon" href="../assets/images/rocket logo.svg" type="image/png" />
+  
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <!-- Fuente moderna -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+  <!-- Iconos -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a1a, #0d0d0d);
+      color: #fff;
+      min-height: 100vh;
+      padding-top: 80px;
+    }
+
+    .account-card {
+      background-color: #212121;
+      border-radius: 20px;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+
+    .account-card h2 {
+      font-weight: 600;
+      text-align: center;
+      color: #ffd369;
+    }
+
+    .user-info {
+      background: #2b2b2b;
+      padding: 1rem;
+      border-radius: 10px;
+      margin-top: 1rem;
+    }
+
+    .user-info p {
+      margin: 0.3rem 0;
+      font-size: 15px;
+      color: #e0e0e0;
+    }
+
+    .btn-logout {
+      background-color: #ff4646;
+      border: none;
+      color: #fff;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .btn-logout:hover {
+      background-color: #ff2e2e;
+      transform: scale(1.03);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      font-size: 14px;
+      color: #aaa;
+      background-color: #111;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+  </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
-        <div class="container">
-            <a class="navbar-brand" href="../index.html"><i class="fas fa-rocket me-2"></i>GearUp Galaxy</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="../index.html">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="../index.html#products-section">Productos</a></li>
-                    <li class="nav-item" id="nav-login" style="display: none;"><a class="nav-link" href="Login.html">Iniciar Sesión</a></li>
-                    <li class="nav-item" id="nav-register" style="display: none;"><a class="nav-link" href="registro.html">Obtener Cuenta</a></li>
-                    <li class="nav-item dropdown" id="nav-account"><a class="nav-link dropdown-toggle active" aria-current="page" href="#" id="navbarDropdownAccount" role="button" data-bs-toggle="dropdown"><i class="fas fa-user me-1"></i><span id="nav-username">Cuenta</span></a><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item active" href="account.html">Mi Cuenta</a></li><li><a class="dropdown-item" href="#" id="logout-button">Cerrar Sesión</a></li></ul></li>
-                    <li class="nav-item"><a class="nav-link" href="cart.html"><i class="fas fa-shopping-cart"></i> Carrito <span class="badge bg-primary rounded-pill" id="cart-count-nav">0</span></a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+  
+  <div class="container">
+    <div class="account-card">
+      <div class="text-center mb-4">
+        <img src="../assets/images/rocket logo.svg" alt="GearUp Galaxy" width="70" />
+        <h2 class="mt-3">Mi Cuenta</h2>
+      </div>
 
-    <main class="container" id="account-page-content">
-        <div class="account-container mx-auto">
-            <h2 class="text-center mb-4">Mi Cuenta</h2>
-            <div id="user-greeting" class="mb-3">
-                </div>
-            
-            <hr>
-            <h4 class="mt-4 mb-3">Cambiar Contraseña (Simulación)</h4>
-            <div id="change-password-message" class="alert" style="display:none;" role="alert"></div>
-            <form id="change-password-form">
-                <div class="mb-3">
-                    <label for="current-password" class="form-label">Contraseña Actual</label>
-                    <input type="password" class="form-control" id="current-password" required>
-                </div>
-                <div class="mb-3">
-                    <label for="new-password" class="form-label">Nueva Contraseña</label>
-                    <input type="password" class="form-control" id="new-password" required minlength="6">
-                </div>
-                <div class="mb-3">
-                    <label for="confirm-new-password" class="form-label">Confirmar Nueva Contraseña</label>
-                    <input type="password" class="form-control" id="confirm-new-password" required minlength="6">
-                </div>
-                <div class="d-grid">
-                    <button type="submit" class="btn btn-warning">Cambiar Contraseña</button>
-                </div>
-            </form>
-        </div>
-    </main>
+      <div id="user-info" class="user-info text-center">
+        <p><strong>Nombre:</strong> <span id="user-name">Cargando...</span></p>
+        <p><strong>Correo:</strong> <span id="user-email">Cargando...</span></p>
+      </div>
 
-    <footer class="footer mt-auto py-3 bg-dark fixed-bottom">
-        <div class="container text-center text-white"><p class="mb-0">&copy; <span id="currentYear"></span> GearUp Galaxy. Todos los derechos reservados.</p></div>
-    </footer>
+      <div class="text-center mt-4">
+        <button id="logout-button" class="btn btn-logout w-100">
+          <i class="fa-solid fa-right-from-bracket me-2"></i> Cerrar Sesión
+        </button>
+      </div>
+    </div>
+  </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="../js/cart.js"></script>
-    <script src="../js/auth.js"></script>
-    <script>
-        document.getElementById('currentYear').textContent = new Date().getFullYear();
-        document.addEventListener('DOMContentLoaded', () => {
-            if (typeof updateCartCountDisplay === 'function') updateCartCountDisplay();
-            if (typeof updateUserNav === 'function') updateUserNav(); // Actualiza el nav
+  <footer>
+    &copy; <span id="currentYear"></span> GearUp Galaxy. Todos los derechos reservados.
+  </footer>
 
-            // Lógica específica para la página de cuenta
-            const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-            const accountPageContent = document.getElementById('account-page-content');
-            const userGreeting = document.getElementById('user-greeting');
+  <!-- Firebase + Script -->
+  <script type="module">
+    import { auth, logoutUser } from "../js/auth.js";
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-            if (!loggedInUser) {
-                // Si no está logueado, redirigir a login
-                window.location.href = 'Login.html';
-            } else {
-                if(userGreeting) {
-                    userGreeting.innerHTML = `Hola, <strong>${loggedInUser.name || loggedInUser.email}</strong>. Aquí puedes gestionar tu cuenta (simulación).`;
-                }
-            }
-        });
-    </script>
+    const userNameEl = document.getElementById("user-name");
+    const userEmailEl = document.getElementById("user-email");
+    const logoutBtn = document.getElementById("logout-button");
+
+    // Actualiza año en footer
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+    // Verifica el usuario actual
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        userNameEl.textContent = user.displayName || "Usuario sin nombre";
+        userEmailEl.textContent = user.email;
+      } else {
+        // Si no hay usuario logueado, redirige al login
+        window.location.href = "login.html";
+      }
+    });
+
+    // Cerrar sesión
+    logoutBtn.addEventListener("click", async () => {
+      await logoutUser();
+      window.location.href = "login.html";
+    });
+  </script>
 </body>
 </html>
