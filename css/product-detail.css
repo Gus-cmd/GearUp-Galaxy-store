@@ -1,0 +1,49 @@
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+#product-detail {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.card {
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.card img {
+  max-height: 300px;
+  object-fit: contain;
+  background-color: #f4f4f4;
+}
+
+.card-body h3 {
+  color: #111;
+}
+
+.card-body p {
+  font-size: 15px;
+}
+
+.btn-success {
+  background-color: #28a745;
+  border: none;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+footer {
+  background-color: #111;
+  color: #fff;
+  font-size: 14px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}

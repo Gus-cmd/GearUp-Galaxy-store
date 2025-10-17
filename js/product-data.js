@@ -227,4 +227,4 @@ export async function getProductById(id) {
 
   // 🔍 Si no está en Firebase, buscar en los locales
   return localProducts.find((p) => p.id === id) || null;
-}
+} 
