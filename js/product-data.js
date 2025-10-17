@@ -1,10 +1,15 @@
-// Detectar si estamos dentro de /pages/ o en la raíz
-const basePath = window.location.pathname.includes("/pages/")
-  ? "../assets/images/"
-  : "assets/images/";
+// ✅ js/product-data.js
+import { db } from "./firebase.js";
+import {
+  collection,
+  getDocs,
+} from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-// Lista de productos
-const products = [
+// 🧩 Definir la ruta base para las imágenes (corregido)
+const basePath = "./assets/images/";
+
+// 🧩 Productos locales
+export const localProducts = [
   {
     id: 1,
     name: "Teclado Mecánico Gamer RGB Pro X",
@@ -20,7 +25,7 @@ const products = [
     category: "Mouses",
     price: 179.00,
     description: "Mouse ergonómico con sensor óptico de alta precisión, 8 botones programables y peso ajustable. Domina cada movimiento.",
-    image: `${basePath}mauseoptico.jpg`,
+    image: `${basePath}mouseoptico.jpg`, // 👈 corregido nombre
     stock: 22
   },
   {
@@ -205,11 +210,21 @@ const products = [
   }
 ];
 
-// Funciones auxiliares
-function getAllProducts() {
-  return products;
-}
+// ✅ Buscar producto por ID (Firebase → Local)
+export async function getProductById(id) {
+  try {
+    const querySnapshot = await getDocs(collection(db, "products"));
+    const firebaseProducts = querySnapshot.docs.map((doc) => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
 
-function getProductById(id) {
-  return products.find(product => product.id === parseInt(id));
+    const found = firebaseProducts.find((p) => p.id === id);
+    if (found) return found;
+  } catch (error) {
+    console.warn("⚠️ Error buscando en Firebase:", error);
+  }
+
+  // 🔍 Si no está en Firebase, buscar en los locales
+  return localProducts.find((p) => p.id === id) || null;
 }

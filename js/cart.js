@@ -1,176 +1,115 @@
 // js/cart.js
+import { getProductById } from "./product-data.js";
 
-// Inicializa el carrito desde localStorage o como un array vacío
-// Esta variable 'cart' es accesible por todas las funciones dentro de este script.
-let cart = JSON.parse(localStorage.getItem('gearUpGalaxyCart')) || [];
-
-/**
- * Guarda el estado actual del array 'cart' en localStorage.
- */
-function saveCart() {
-    localStorage.setItem('gearUpGalaxyCart', JSON.stringify(cart));
-    // console.log("Carrito guardado en localStorage:", cart); // Descomentar para depurar guardado
+// ✅ Actualiza el contador del carrito (en navbar)
+export function updateCartCountDisplay() {
+  const countElement = document.getElementById("cart-count-nav");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+  if (countElement) countElement.textContent = cart.length;
 }
 
-/**
- * Actualiza el contador de ítems del carrito en el navbar.
- * Busca un elemento con ID 'cart-count-nav'.
- */
-function updateCartCountDisplay() {
-    const cartCountElement = document.getElementById('cart-count-nav'); // ID estandarizado para el contador
-    if (cartCountElement) {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-        cartCountElement.textContent = totalItems;
+// ✅ Agregar producto al carrito (ahora soporta Firebase)
+export async function addToCart(id) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  const existingItem = cart.find(item => item.id === id);
+
+  if (!existingItem) {
+    const product = await getProductById(id); // 👈 Espera producto de Firebase o local
+
+    if (product) {
+      const newItem = {
+        id,
+        nombre: product.nombre || product.name || "Producto sin nombre",
+        precio: Number(product.precio || product.price || 0),
+        imagen: product.imagen || product.image || "https://via.placeholder.com/150"
+      };
+
+      cart.push(newItem);
+      localStorage.setItem("cart", JSON.stringify(cart));
+      updateCartCountDisplay();
+      alert("✅ Producto añadido al carrito");
     } else {
-        // Solo como fallback o si se usa un ID diferente en alguna página antigua.
-        const fallbackCartCountElement = document.getElementById('cart-count');
-        if (fallbackCartCountElement) {
-            console.warn("Usando ID de fallback 'cart-count' para el contador. Se recomienda usar 'cart-count-nav'.");
-            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
-            fallbackCartCountElement.textContent = totalItems;
-        } else {
-            // console.warn("Elemento del contador del carrito ('cart-count-nav' o 'cart-count') no encontrado en el DOM actual.");
-        }
+      console.error("⚠️ No se encontró el producto con id:", id);
     }
+  } else {
+    alert("⚠️ Este producto ya está en el carrito");
+  }
 }
 
-/**
- * Añade un producto al carrito o incrementa su cantidad si ya existe.
- * @param {number|string} productId - El ID del producto a añadir.
- */
-function addToCart(productId) {
-    // Verificar si getProductById está disponible (debería estar en product_data.js y cargado antes)
-    if (typeof getProductById !== 'function') {
-        console.error("Error en addToCart: La función getProductById no está definida. Asegúrate de que product_data.js se cargue primero.");
-        alert("Error crítico: No se pueden obtener los datos del producto.");
-        return;
-    }
-
-    const product = getProductById(parseInt(productId)); // Convertir a número por si acaso
-
-    if (!product) {
-        console.error(`Error en addToCart: Producto con ID ${productId} no encontrado.`);
-        alert("Error: No se pudo añadir el producto. Producto no encontrado.");
-        return;
-    }
-
-    const existingProductIndex = cart.findIndex(item => item.id === product.id);
-
-    if (existingProductIndex > -1) {
-        cart[existingProductIndex].quantity += 1;
-    } else {
-        cart.push({ ...product, quantity: 1 }); // Añade toda la info del producto más la cantidad
-    }
-
-    saveCart();
-    updateCartCountDisplay();
-    alert(`"${product.name}" ha sido añadido al carrito.`);
-    console.log("Carrito actual:", cart);
+// ✅ Quitar producto del carrito
+export function removeFromCart(id) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  cart = cart.filter(item => item.id !== id);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCountDisplay();
+  renderCart();
 }
 
-/**
- * Elimina un producto completamente del carrito.
- * @param {number|string} productId - El ID del producto a eliminar.
- */
-function removeFromCart(productId) {
-    const idToRemove = parseInt(productId);
-    const initialLength = cart.length;
-    cart = cart.filter(item => item.id !== idToRemove);
-
-    if (cart.length < initialLength) {
-        saveCart();
-        updateCartCountDisplay();
-        // Si estamos en la página del carrito (cart.html), la volvemos a renderizar.
-        // Se asume que cart.html tiene una función global renderCartPageItems().
-        if (typeof renderCartPageItems === 'function' && document.getElementById('cart-items-container')) {
-            renderCartPageItems();
-        }
-        alert("Producto eliminado del carrito.");
-    } else {
-        console.warn(`Intento de eliminar producto con ID ${idToRemove} que no está en el carrito.`);
-    }
+// ✅ Vaciar carrito
+export function clearCart() {
+  localStorage.removeItem("cart");
+  updateCartCountDisplay();
+  renderCart();
 }
 
-/**
- * Actualiza la cantidad de un producto específico en el carrito.
- * Si la nueva cantidad es 0, elimina el producto.
- * @param {number|string} productId - El ID del producto a actualizar.
- * @param {number|string} newQuantity - La nueva cantidad para el producto.
- */
-function updateQuantity(productId, newQuantity) {
-    const idToUpdate = parseInt(productId);
-    const quantity = parseInt(newQuantity);
+// ✅ Renderizar carrito completo
+export function renderCart() {
+  const cartContainer = document.getElementById("cart-items");
+  const totalElement = document.getElementById("cart-total");
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
-    const productIndex = cart.findIndex(item => item.id === idToUpdate);
+  if (!cartContainer) return;
 
-    if (productIndex > -1) {
-        if (quantity > 0) {
-            cart[productIndex].quantity = quantity;
-        } else if (quantity === 0) {
-            // Si la cantidad es 0, eliminamos el producto usando la función existente.
-            // removeFromCart ya se encarga de saveCart, updateCartCountDisplay y re-render.
-            removeFromCart(idToUpdate); 
-            return; // Salimos para evitar doble guardado o re-renderizado.
-        } else {
-            alert("La cantidad no puede ser negativa.");
-            // Si estamos en cart.html, re-renderizar para restaurar el valor anterior en el input
-            if (typeof renderCartPageItems === 'function' && document.getElementById('cart-items-container')) {
-                renderCartPageItems(); 
-            }
-            return;
-        }
-        
-        saveCart();
-        updateCartCountDisplay();
+  if (cart.length === 0) {
+    cartContainer.innerHTML = `
+      <div class="text-center mt-5">
+        <h4>🛒 Tu carrito está vacío</h4>
+        <a href="../index.html" class="btn btn-primary mt-3">Seguir comprando</a>
+      </div>
+    `;
+    if (totalElement) totalElement.textContent = "S/. 0.00";
+    return;
+  }
 
-        // Si estamos en la página del carrito, la volvemos a renderizar para actualizar totales y subtotales.
-        if (typeof renderCartPageItems === 'function' && document.getElementById('cart-items-container')) {
-            renderCartPageItems();
-        }
-    } else {
-        console.error(`Error en updateQuantity: Producto con ID ${idToUpdate} no encontrado en el carrito.`);
-    }
+  cartContainer.innerHTML = "";
+  let total = 0;
+
+  cart.forEach(item => {
+    const precio = Number(item.precio || 0);
+    total += precio;
+
+    const productCard = document.createElement("div");
+    productCard.classList.add("cart-item", "d-flex", "align-items-center", "justify-content-between", "p-3");
+    productCard.innerHTML = `
+      <div class="d-flex align-items-center">
+        <img src="${item.imagen}" alt="${item.nombre}" style="width: 70px; height: 70px; object-fit: cover; border-radius: 10px;">
+        <div class="ms-3">
+          <h6 class="mb-1">${item.nombre}</h6>
+          <p class="mb-0 text-success fw-bold">S/. ${precio.toFixed(2)}</p>
+        </div>
+      </div>
+      <button class="btn btn-danger btn-sm remove-btn" data-id="${item.id}">
+        <i class="fas fa-trash"></i>
+      </button>
+    `;
+    cartContainer.appendChild(productCard);
+  });
+
+  if (totalElement) totalElement.textContent = `S/. ${total.toFixed(2)}`;
+
+  document.querySelectorAll(".remove-btn").forEach(btn => {
+    btn.addEventListener("click", e => {
+      const id = e.target.closest("button").dataset.id;
+      removeFromCart(id);
+    });
+  });
 }
 
-/**
- * Devuelve el array actual de ítems en el carrito.
- * @returns {Array} Array de objetos producto en el carrito.
- */
-function getCartItems() {
-    return cart;
-}
+// ✅ Inicializar
+document.addEventListener("DOMContentLoaded", () => {
+  updateCartCountDisplay();
+  renderCart();
 
-/**
- * Calcula el precio total de todos los ítems en el carrito.
- * @returns {string} El total formateado a dos decimales.
- */
-function getCartTotal() {
-    return cart.reduce((total, item) => {
-        // Asegurarse de que price y quantity sean números para la suma
-        const price = parseFloat(item.price) || 0;
-        const quantity = parseInt(item.quantity) || 0;
-        return total + (price * quantity);
-    }, 0).toFixed(2);
-}
-
-/**
- * Vacía completamente el carrito (tanto en memoria como en localStorage)
- * y actualiza el contador del navbar.
- * Esta función es útil para ser llamada desde checkout.js.
- */
-function clearCart() {
-    console.log("Limpiando carrito y actualizando UI desde cart.js...");
-    cart = []; // Vacía el array en memoria
-    saveCart(); // Guarda el array vacío en localStorage
-    updateCartCountDisplay(); // Actualiza el contador del navbar
-    // Si la página actual es cart.html, también deberíamos re-renderizarla para mostrarla vacía.
-    if (typeof renderCartPageItems === 'function' && document.getElementById('cart-items-container')) {
-        renderCartPageItems();
-    }
-}
-
-// NO incluir un DOMContentLoaded listener aquí para llamar a updateCartCountDisplay.
-// Es mejor que CADA PÁGINA HTML llame a updateCartCountDisplay (y updateUserNav de auth.js)
-// en su propio bloque DOMContentLoaded. Esto da más control y evita llamadas múltiples
-// o dependencias de si cart.js se cargó y ejecutó su propio DOMContentLoaded primero.
-
+  const clearBtn = document.getElementById("clear-cart");
+  if (clearBtn) clearBtn.addEventListener("click", clearCart);
+});

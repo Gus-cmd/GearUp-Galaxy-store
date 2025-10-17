@@ -5,126 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>GearUp Galaxy - Tu universo gamer</title>
   <link rel="icon" href="assets/images/rocket logo.svg" type="image/png" />
-  
+
   <!-- Bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <!-- FontAwesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
-  <!-- Fuentes y estilos -->
+  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <!-- Estilos personalizados -->
   <link rel="stylesheet" href="css/styles.css" />
-
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      overflow-x: hidden;
-      background-color: #0e0e10;
-      color: #fff;
-    }
-
-    /* NAVBAR */
-    .navbar {
-      background-color: rgba(10, 10, 15, 0.9);
-      backdrop-filter: blur(8px);
-    }
-    .navbar-brand {
-      font-weight: 600;
-      color: #00c6ff !important;
-    }
-
-    /* HERO */
-    .hero {
-      background: url('assets/images/hero-bg.jpg') no-repeat center center/cover;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      text-align: center;
-      position: relative;
-    }
-
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.6);
-      z-index: 0;
-    }
-
-    .hero h1 {
-      z-index: 1;
-      font-size: 3rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .hero p {
-      z-index: 1;
-      color: #d1d1d1;
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 15px auto;
-    }
-
-    .hero .btn {
-      z-index: 1;
-      margin-top: 20px;
-      background: linear-gradient(90deg, #0072ff, #00c6ff);
-      border: none;
-      padding: 12px 28px;
-      font-weight: 600;
-      border-radius: 8px;
-      transition: 0.3s;
-    }
-
-    .hero .btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(0,198,255,0.6);
-    }
-
-    /* BENEFICIOS */
-    .features {
-      background-color: #111;
-      padding: 80px 0;
-    }
-
-    .feature-card {
-      background: rgba(255,255,255,0.05);
-      padding: 30px;
-      border-radius: 16px;
-      transition: 0.3s;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .feature-card:hover {
-      transform: translateY(-5px);
-      border-color: #00c6ff;
-    }
-
-    .feature-card i {
-      font-size: 2rem;
-      color: #00c6ff;
-      margin-bottom: 15px;
-    }
-
-    /* PRODUCTOS */
-    #products-section {
-      padding: 80px 0;
-    }
-    #products-section h2 {
-      color: #00c6ff;
-      font-weight: 600;
-      margin-bottom: 40px;
-    }
-
-    /* FOOTER */
-    footer {
-      background-color: #0a0a0c;
-      color: #aaa;
-      padding: 30px 0;
-    }
-  </style>
 </head>
 
 <body>
@@ -154,7 +43,8 @@
 
           <li class="nav-item">
             <a class="nav-link text-white" href="pages/cart.html">
-              <i class="fas fa-shopping-cart"></i> <span class="badge bg-primary rounded-pill" id="cart-count-nav">0</span>
+              <i class="fas fa-shopping-cart"></i>
+              <span class="badge bg-primary rounded-pill" id="cart-count-nav">0</span>
             </a>
           </li>
         </ul>
@@ -216,11 +106,11 @@
 
   <!-- 🧠 SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/product-data.js"></script>
-  <script src="js/cart.js"></script>
-  <script src="js/script.js"></script>
   <script type="module" src="js/products.js"></script>
+  <script type="module" src="js/firebase.js"></script>
 
+
+  <!-- Estado del usuario -->
   <script type="module">
     import { auth } from "./js/firebase.js";
     import { logoutUser } from "./js/auth.js";

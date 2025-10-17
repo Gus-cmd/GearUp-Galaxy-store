@@ -1,13 +1,11 @@
 /* ========================================================== */
-/* 🌌 GearUp Galaxy - Estilos del Checkout                    */
+/* 🌌 GearUp Galaxy - Estilos del Carrito                     */
 /* ========================================================== */
 :root {
   --primary-color: #00c6ff;
   --primary-hover: #0072ff;
   --dark-bg: #0e0e10;
-  --light-bg: #ffffff;
   --text-color: #ffffff;
-  --secondary-text: #d1d1d1;
   --transition-speed: 0.3s;
 }
 
@@ -34,9 +32,9 @@ body {
 }
 
 /* ---------------------------------------------------------- */
-/* 🧾 CONTENEDOR PRINCIPAL                                   */
+/* 🛒 CONTENEDOR PRINCIPAL                                   */
 /* ---------------------------------------------------------- */
-.checkout-container {
+.cart-container {
   display: flex;
   justify-content: center;
   align-items: flex-start;
@@ -44,78 +42,114 @@ body {
   padding: 40px 20px;
 }
 
-.checkout-box {
+.cart-box {
   background: #1a1a1d;
   padding: 30px;
   border-radius: 16px;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   box-shadow: 0 0 15px rgba(0,198,255,0.2);
 }
 
-.checkout-items {
+/* ---------------------------------------------------------- */
+/* 📦 PRODUCTOS EN CARRITO                                   */
+/* ---------------------------------------------------------- */
+.cart-items {
   background-color: rgba(255, 255, 255, 0.05);
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 20px;
 }
 
-.checkout-items div {
+.cart-item {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   border-bottom: 1px solid rgba(255,255,255,0.1);
-  padding: 8px 0;
+  padding: 12px 0;
 }
 
-.checkout-total {
+.cart-item img {
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.cart-item-info {
+  flex-grow: 1;
+  margin-left: 15px;
+}
+
+.cart-item-title {
+  font-weight: 600;
+}
+
+.cart-item-price {
+  font-size: 0.95rem;
+  color: #aaa;
+}
+
+.remove-item {
+  color: var(--primary-color);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-speed);
+}
+.remove-item:hover {
+  color: var(--primary-hover);
+  transform: scale(1.2);
+}
+
+/* ---------------------------------------------------------- */
+/* 💰 TOTAL Y BOTONES                                        */
+/* ---------------------------------------------------------- */
+.cart-total {
   display: flex;
   justify-content: space-between;
   background-color: rgba(255,255,255,0.1);
   padding: 12px 16px;
   border-radius: 8px;
   font-size: 1.1rem;
+  font-weight: 500;
   margin-bottom: 20px;
 }
 
-/* ---------------------------------------------------------- */
-/* 💳 FORMULARIO DE PAGO                                     */
-/* ---------------------------------------------------------- */
-.checkout-form {
-  background-color: #fff;
-  color: #000;
-  border-radius: 12px;
-  padding: 20px;
+.cart-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 
-.payment-options label {
-  display: block;
-  font-weight: 500;
-  margin: 10px 0;
-  color: #000;
-}
-
-.checkout-form input[type="text"] {
-  width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  font-size: 0.95rem;
-}
-
-.btn-submit {
-  width: 100%;
-  background: linear-gradient(90deg, var(--primary-hover), var(--primary-color));
-  color: #fff;
-  border: none;
+.btn-clear, .btn-checkout {
+  flex: 1;
   padding: 12px;
-  font-size: 1rem;
-  font-weight: 600;
+  border: none;
   border-radius: 8px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
   transition: var(--transition-speed);
 }
 
-.btn-submit:hover {
+/* 🔵 Botón Vaciar */
+.btn-clear {
+  background-color: transparent;
+  color: #ff4d4d;
+  border: 1px solid #ff4d4d;
+}
+.btn-clear:hover {
+  background-color: #ff4d4d;
+  color: #fff;
+}
+
+/* 💳 Botón Checkout */
+.btn-checkout {
+  background: linear-gradient(90deg, var(--primary-hover), var(--primary-color));
+  color: #fff;
+}
+.btn-checkout:hover {
   transform: scale(1.03);
   box-shadow: 0 0 15px rgba(0,198,255,0.4);
 }
